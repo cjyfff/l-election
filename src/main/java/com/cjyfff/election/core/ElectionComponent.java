@@ -6,6 +6,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.TimeUnit;
 
+import com.cjyfff.election.exception.ElectionException;
 import com.cjyfff.election.info.ShardingInfo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,7 @@ public class ElectionComponent {
     @Autowired
     private ShardingInfo shardingInfo;
 
-    @Value("${server.port}")
+    @Value("${l_election.specified_port}")
     private String servicePort;
 
     @Value("${l_election.specified_local_ip}")
@@ -72,6 +73,10 @@ public class ElectionComponent {
 
             }
             localIp = addr.getHostAddress();
+        }
+
+        if (StringUtils.isEmpty(servicePort)) {
+            throw new ElectionException("servicePort can not be null!");
         }
 
         return localIp + ":" + servicePort;

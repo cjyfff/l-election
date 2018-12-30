@@ -17,7 +17,20 @@
 ```
 2. 由于这个sdk是基于spring boot，为了让sdk的bean能够注入到项目中，需要在项目的配置类中添加`@ComponentScan(basePackages={"com.cjyfff.election"})`
 3. 在项目中注入`com.cjyfff.election.core.Election`，然后执行`election.start()`。此方法一般都是在项目启动时执行，可以考虑添加一个Listerner在spring boot的ApplicationReadyEvent事件触发时执行。
-4. （可选）自定义选举变为完成（或选举状态变为未完成)前后的需要执行的逻辑。实现下面所指定的类，并且定义为spring bean，sdk将会在选举状态变更时执行自定义的逻辑。例如我想在master宣告选举完成前执行一些逻辑，那么我就定义下面这样一个类：
+4. 在项目的配置文件中加入以下配置：
+```
+# 指定本机服务端口，一般与`server.port`一致
+l_election.specified_port=8888
+# 指定本机ip，不指定的话将自动检测，自动检测时假如本机拥有多个ip可能会获取到错误的ip
+l_election.specified_local_ip=
+# zookeeper地址以及端口，假如是集群的话使用逗号分隔
+l_election.zk_host=192.168.43.9:2181,192.168.43.42:2181,192.168.43.241:2181
+l_election.zk_session_timeout_ms=30000
+l_election.zk_connection_timeout_ms=10000
+l_election.zk_base_sleep_time_ms=1000
+l_election.zk_max_retries=3
+```
+5. （可选）自定义选举变为完成（或选举状态变为未完成)前后的需要执行的逻辑。实现下面所指定的类，并且定义为spring bean，sdk将会在选举状态变更时执行自定义的逻辑。例如我想在master宣告选举完成前执行一些逻辑，那么我就定义下面这样一个类：
 ```
 @Component
 public class MasterBeforeUpdateElectionFinishBiz implements ElectionBiz {
