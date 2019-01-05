@@ -1,14 +1,14 @@
-package com.cjyfff.election.slave;
+package com.cjyfff.election.core.slave;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.alibaba.fastjson.JSON;
 
 import com.cjyfff.election.biz.ElectionBizContainer;
-import com.cjyfff.election.info.ElectionListener;
-import com.cjyfff.election.info.ElectionStatus.ElectionStatusType;
+import com.cjyfff.election.core.info.ElectionListener;
+import com.cjyfff.election.core.info.ElectionStatus.ElectionStatusType;
 import com.cjyfff.election.core.ElectionComponent;
-import com.cjyfff.election.info.SetSelfESAndRunBLProxy;
+import com.cjyfff.election.core.info.SetSelfESAndRunBLProxy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.curator.framework.recipes.cache.ChildData;
 import org.apache.curator.framework.recipes.cache.NodeCache;

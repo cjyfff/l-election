@@ -1,4 +1,4 @@
-package com.cjyfff.election.master;
+package com.cjyfff.election.core.master;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -6,10 +6,10 @@ import java.util.concurrent.ConcurrentHashMap;
 import com.alibaba.fastjson.JSON;
 
 import com.cjyfff.election.biz.ElectionBizContainer;
-import com.cjyfff.election.info.ElectionListener;
-import com.cjyfff.election.info.ElectionStatus.ElectionStatusType;
+import com.cjyfff.election.core.info.ElectionListener;
+import com.cjyfff.election.core.info.ElectionStatus.ElectionStatusType;
 import com.cjyfff.election.core.ElectionComponent;
-import com.cjyfff.election.info.SetSelfESAndRunBLProxy;
+import com.cjyfff.election.core.info.SetSelfESAndRunBLProxy;
 import org.apache.curator.framework.CuratorFramework;
 import org.apache.zookeeper.CreateMode;
 import org.apache.zookeeper.data.Stat;

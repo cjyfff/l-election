@@ -1,8 +1,8 @@
-package com.cjyfff.election.info;
+package com.cjyfff.election.core.info;
 
 import com.cjyfff.election.biz.ElectionBiz;
 import com.cjyfff.election.exception.ElectionException;
-import com.cjyfff.election.info.ElectionStatus.ElectionStatusType;
+import com.cjyfff.election.core.info.ElectionStatus.ElectionStatusType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

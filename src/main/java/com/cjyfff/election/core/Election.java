@@ -5,11 +5,11 @@ import java.util.concurrent.TimeUnit;
 
 import com.cjyfff.election.biz.ElectionBizContainer;
 import com.cjyfff.election.biz.NoneBiz;
-import com.cjyfff.election.info.ElectionStatus;
-import com.cjyfff.election.info.ElectionStatus.ElectionStatusType;
-import com.cjyfff.election.info.SetSelfESAndRunBLProxy;
-import com.cjyfff.election.master.MasterAction;
-import com.cjyfff.election.slave.SlaveAction;
+import com.cjyfff.election.core.info.ElectionStatus;
+import com.cjyfff.election.core.info.ElectionStatus.ElectionStatusType;
+import com.cjyfff.election.core.info.SetSelfESAndRunBLProxy;
+import com.cjyfff.election.core.master.MasterAction;
+import com.cjyfff.election.core.slave.SlaveAction;
 import com.cjyfff.election.config.ZooKeeperClient;
 import com.google.common.collect.Lists;
 import org.apache.curator.framework.CuratorFramework;

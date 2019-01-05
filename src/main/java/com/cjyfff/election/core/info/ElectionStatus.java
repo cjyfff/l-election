@@ -1,4 +1,4 @@
-package com.cjyfff.election.info;
+package com.cjyfff.election.core.info;
 
 import lombok.Getter;
 import org.apache.curator.framework.recipes.leader.LeaderLatch;

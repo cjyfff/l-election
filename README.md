@@ -69,6 +69,6 @@ SlaveAfterUpdateElectionNotYetBiz
 ```
 
 ## 使用方法
-在项目成功启动后，可以通过`com.cjyfff.election.info`里的类获取选举信息，集成方就可以根据选举信息判断节点的身份和需要的操作。选举信息包括：
-1. `com.cjyfff.election.info.ElectionStatus`中`electionStatus`记录着选举状态（完成、未完成），`leaderLatch`可以判断当前节点是否master（根据`leaderLatch().hasLeadership()`判断）。
-2. `com.cjyfff.election.info.ShardingInfo`中`shardingMap`记录着集群节点信息，这是一个Map，key为节点id，value为该节点的ip和端口组成的字符串（例如`192.168.1.1:8899`），`nodeId`记录着本机所分配到的节点id。
+在项目成功启动后，可以通过`com.cjyfff.election.core.info`里的类获取选举信息，集成方就可以根据选举信息判断节点的身份和需要的操作。选举信息包括：
+1. `com.cjyfff.election.core.info.ElectionStatus`中`electionStatus`记录着选举状态（完成、未完成），`leaderLatch`可以判断当前节点是否master（根据`leaderLatch().hasLeadership()`判断）。
+2. `com.cjyfff.election.core.info.ShardingInfo`中`shardingMap`记录着集群节点信息，这是一个Map，key为节点id，value为该节点的ip和端口组成的字符串（例如`192.168.1.1:8899`），`nodeId`记录着本机所分配到的节点id。
