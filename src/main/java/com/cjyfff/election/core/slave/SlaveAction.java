@@ -32,9 +32,6 @@ public class SlaveAction {
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
-    private ElectionListener electionListener;
-
-    @Autowired
     private ElectionComponent electionComponent;
 
     @Autowired
@@ -67,7 +64,7 @@ public class SlaveAction {
 
         cache.getListenable().addListener(listener);
         cache.start();
-        electionListener.setSlaveMonitorShardingInfoListener(cache);
+        ElectionListener.setSlaveMonitorShardingInfoListener(cache);
     }
 
     /**
@@ -106,6 +103,6 @@ public class SlaveAction {
 
         cache.getListenable().addListener(listener);
         cache.start();
-        electionListener.setSlaveMonitorElectionStatusListener(cache);
+        ElectionListener.setSlaveMonitorElectionStatusListener(cache);
     }
 }

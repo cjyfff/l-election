@@ -34,9 +34,6 @@ public class MasterAction {
     private static final String ELECTION_STATUS_PATH = "/election_status";
 
     @Autowired
-    private ElectionListener electionListener;
-
-    @Autowired
     private ElectionComponent electionComponent;
 
     @Autowired
@@ -124,12 +121,12 @@ public class MasterAction {
      * 而创建的listener
      */
     public void masterCloseSlaveListener() throws Exception {
-        if (electionListener.getSlaveMonitorShardingInfoListener() != null) {
-            electionListener.getSlaveMonitorShardingInfoListener().close();
+        if (ElectionListener.getSlaveMonitorShardingInfoListener() != null) {
+            ElectionListener.getSlaveMonitorShardingInfoListener().close();
         }
 
-        if (electionListener.getSlaveMonitorElectionStatusListener() != null) {
-            electionListener.getSlaveMonitorElectionStatusListener().close();
+        if (ElectionListener.getSlaveMonitorElectionStatusListener() != null) {
+            ElectionListener.getSlaveMonitorElectionStatusListener().close();
         }
     }
 

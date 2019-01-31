@@ -49,9 +49,6 @@ public class Election {
     private ZooKeeperClient zooKeeperClient;
 
     @Autowired
-    private ElectionStatus electionStatus;
-
-    @Autowired
     private MasterAction masterAction;
 
     @Autowired
@@ -86,12 +83,12 @@ public class Election {
                 TimeUnit.SECONDS.sleep(1);
             }
 
-            if (electionStatus.getLeaderLatch() == null) {
+            if (ElectionStatus.getLeaderLatch() == null) {
                 throw new Exception("LeaderLatch in electionStatus get null.");
             }
 
             // 确保只有slave才执行
-            if (! electionStatus.getLeaderLatch().hasLeadership()) {
+            if (! ElectionStatus.getLeaderLatch().hasLeadership()) {
 
                 slaveAction.slaveMonitorShardingInfo(client);
 
@@ -135,8 +132,8 @@ public class Election {
             if (Lists.newArrayList(Type.CHILD_ADDED, Type.CHILD_REMOVED, Type.CHILD_UPDATED).contains(event.getType())) {
 
                 // 在选举成功后，发生节点变更，master需要触发重新分片，在这个过程需要宣告选举没完成
-                if (electionStatus.getLeaderLatch().hasLeadership()) {
-                    if (ElectionStatusType.FINISH.equals(electionStatus.getElectionStatus())) {
+                if (ElectionStatus.getLeaderLatch().hasLeadership()) {
+                    if (ElectionStatusType.FINISH.equals(ElectionStatus.getElectionStatus())) {
                         logger.info("NODE_INFO_PATH change, start sharding...");
 
                         masterAction.masterUpdateZkAndSelfElectionStatus(client, false);
@@ -175,7 +172,7 @@ public class Election {
 
                     masterAction.masterCloseSlaveListener();
 
-                    if (ElectionStatusType.FINISH.equals(electionStatus.getElectionStatus())) {
+                    if (ElectionStatusType.FINISH.equals(ElectionStatus.getElectionStatus())) {
                         logger.info("Starting re-election...");
                         masterAction.masterUpdateZkAndSelfElectionStatus(client, false);
 
@@ -212,6 +209,6 @@ public class Election {
 
 
         leaderLatch.start();
-        electionStatus.setLeaderLatch(leaderLatch);
+        ElectionStatus.setLeaderLatch(leaderLatch);
     }
 }

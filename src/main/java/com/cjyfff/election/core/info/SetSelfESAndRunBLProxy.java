@@ -3,7 +3,6 @@ package com.cjyfff.election.core.info;
 import com.cjyfff.election.biz.ElectionBiz;
 import com.cjyfff.election.exception.ElectionException;
 import com.cjyfff.election.core.info.ElectionStatus.ElectionStatusType;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,14 +12,11 @@ import org.springframework.stereotype.Component;
 @Component
 public class SetSelfESAndRunBLProxy {
 
-    @Autowired
-    private ElectionStatus electionStatus;
-
     public void setFinish(ElectionBiz before, ElectionBiz after) throws Exception {
         checkBeforeAndAfterMethod(before, after);
 
         before.run();
-        electionStatus.setElectionStatus(ElectionStatusType.FINISH);
+        ElectionStatus.setElectionStatus(ElectionStatusType.FINISH);
         after.run();
     }
 
@@ -28,7 +24,7 @@ public class SetSelfESAndRunBLProxy {
         checkBeforeAndAfterMethod(before, after);
 
         before.run();
-        electionStatus.setElectionStatus(ElectionStatusType.NOT_YET);
+        ElectionStatus.setElectionStatus(ElectionStatusType.NOT_YET);
         after.run();
     }
 

@@ -1,26 +1,30 @@
 package com.cjyfff.election.core.info;
 
-import lombok.Getter;
 import org.apache.curator.framework.recipes.leader.LeaderLatch;
-import org.springframework.stereotype.Component;
 
 /**
  * Created by jiashen on 18-8-25.
  */
-@Getter
-@Component
 public class ElectionStatus {
 
-    private volatile ElectionStatusType electionStatus = ElectionStatusType.NOT_YET;
+    private static volatile ElectionStatusType electionStatus = ElectionStatusType.NOT_YET;
 
-    private volatile LeaderLatch leaderLatch;
+    private static volatile LeaderLatch leaderLatch;
 
-    void setElectionStatus(ElectionStatusType electionStatus) {
-        this.electionStatus = electionStatus;
+    public static ElectionStatusType getElectionStatus() {
+        return electionStatus;
     }
 
-    public void setLeaderLatch(LeaderLatch leaderLatch) {
-        this.leaderLatch = leaderLatch;
+    static void setElectionStatus(ElectionStatusType electionStatus) {
+        ElectionStatus.electionStatus = electionStatus;
+    }
+
+    public static LeaderLatch getLeaderLatch() {
+        return leaderLatch;
+    }
+
+    public static void setLeaderLatch(LeaderLatch leaderLatch) {
+        ElectionStatus.leaderLatch = leaderLatch;
     }
 
     public enum ElectionStatusType {
