@@ -3,14 +3,12 @@ package com.cjyfff.election.core;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 
 import com.cjyfff.election.exception.ElectionException;
 import com.cjyfff.election.core.info.ShardingInfo;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -22,9 +20,6 @@ import org.springframework.util.StringUtils;
 @Slf4j
 public class ElectionComponent {
 
-    @Autowired
-    private ShardingInfo shardingInfo;
-
     @Value("${l_election.specified_port}")
     private String servicePort;
 
@@ -33,13 +28,13 @@ public class ElectionComponent {
 
     public void updateSelfShardingInfo(ConcurrentSkipListMap<Byte, String> shardingMap) throws Exception {
         if (shardingMap == null) {
-            shardingInfo.setShardingMap(null);
+            ShardingInfo.setShardingMap(null);
             return;
         }
 
         String host = getHost();
 
-        shardingInfo.setShardingMap(shardingMap);
+        ShardingInfo.setShardingMap(shardingMap);
 
         Byte nodeId = null;
         for (Entry<Byte, String> node : shardingMap.entrySet()) {
@@ -51,7 +46,7 @@ public class ElectionComponent {
         if (nodeId == null) {
             log.warn("Invalid Sharding Map, can not find self node info.");
         } else {
-            shardingInfo.setNodeId(nodeId);
+            ShardingInfo.setNodeId(nodeId);
         }
     }
 
