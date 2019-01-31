@@ -4,6 +4,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.concurrent.TimeUnit;
 
 import com.cjyfff.election.exception.ElectionException;
@@ -30,7 +31,7 @@ public class ElectionComponent {
     @Value("${l_election.specified_local_ip}")
     private String localIp;
 
-    public void updateSelfShardingInfo(ConcurrentHashMap<Integer, String> shardingMap) throws Exception {
+    public void updateSelfShardingInfo(ConcurrentSkipListMap<Byte, String> shardingMap) throws Exception {
         if (shardingMap == null) {
             shardingInfo.setShardingMap(null);
             return;
@@ -40,8 +41,8 @@ public class ElectionComponent {
 
         shardingInfo.setShardingMap(shardingMap);
 
-        Integer nodeId = null;
-        for (Entry<Integer, String> node : shardingMap.entrySet()) {
+        Byte nodeId = null;
+        for (Entry<Byte, String> node : shardingMap.entrySet()) {
             if (host.equals(node.getValue())) {
                 nodeId = node.getKey();
                 break;

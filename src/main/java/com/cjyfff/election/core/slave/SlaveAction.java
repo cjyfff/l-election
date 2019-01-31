@@ -1,6 +1,7 @@
 package com.cjyfff.election.core.slave;
 
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import com.alibaba.fastjson.JSON;
 
@@ -55,7 +56,7 @@ public class SlaveAction {
             if (null != data) {
                 String shardingData = new String(cache.getCurrentData().getData());
                 logger.info("Slave get cluster sharding info changed：" + shardingData);
-                ConcurrentHashMap<Integer, String> shardingMap = JSON.parseObject(shardingData, ConcurrentHashMap.class);
+                ConcurrentSkipListMap<Byte, String> shardingMap = JSON.parseObject(shardingData, ConcurrentSkipListMap.class);
                 electionComponent.updateSelfShardingInfo(shardingMap);
 
             } else {

@@ -2,6 +2,7 @@ package com.cjyfff.election.core.master;
 
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentSkipListMap;
 
 import com.alibaba.fastjson.JSON;
 
@@ -51,8 +52,8 @@ public class MasterAction {
      */
     public void masterSetShardingInfo(CuratorFramework client) throws Exception {
         List<String> nodeHostList = client.getChildren().forPath(NODE_INFO_PATH);
-        Integer nodeId = 0;
-        ConcurrentHashMap<Integer, String> shardingMap = new ConcurrentHashMap<>(20);
+        Byte nodeId = 0;
+        ConcurrentSkipListMap<Byte, String> shardingMap = new ConcurrentSkipListMap<>();
         for (String nodeHost : nodeHostList) {
             shardingMap.put(nodeId, nodeHost);
             logger.info("Host: " + nodeHost + ", get nodeId: " + nodeId);
