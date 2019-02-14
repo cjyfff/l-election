@@ -19,7 +19,7 @@
 3. 在项目中注入`com.cjyfff.election.core.Election`，然后执行`election.start()`。此方法一般都是在项目启动时执行，可以考虑添加一个Listerner在spring boot的ApplicationReadyEvent事件触发时执行。
 4. 在项目的配置文件中加入以下配置：
 ```
-# 指定本机服务端口，一般与`server.port`一致
+# 指定与其他各节点通信的端口
 l_election.specified_port=8888
 # 指定本机ip，不指定的话将自动检测，自动检测时假如本机拥有多个ip可能会获取到错误的ip
 l_election.specified_local_ip=
