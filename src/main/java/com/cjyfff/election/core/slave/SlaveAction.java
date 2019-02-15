@@ -1,6 +1,5 @@
 package com.cjyfff.election.core.slave;
 
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import com.alibaba.fastjson.JSON;
