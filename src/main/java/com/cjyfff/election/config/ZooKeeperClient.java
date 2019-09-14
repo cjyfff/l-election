@@ -7,14 +7,15 @@ import org.apache.curator.retry.ExponentialBackoffRetry;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.event.ApplicationReadyEvent;
+import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 
 /**
  * Created by jiashen on 2018/8/18.
  */
 @Component
-public class ZooKeeperClient {
-
+public class ZooKeeperClient implements ApplicationListener<ApplicationReadyEvent> {
     @Value("${l_election.zk_host}")
     private String zkHost;
 
@@ -34,13 +35,18 @@ public class ZooKeeperClient {
 
     private final Logger logger = LoggerFactory.getLogger(getClass());
 
-    public CuratorFramework getClient() {
+    @Override
+    public void onApplicationEvent(ApplicationReadyEvent event) {
+        logger.info("Zookeeper client init...");
         if (this.client == null) {
             CuratorFramework c = CuratorFrameworkFactory.newClient(zkHost, zkSessionTimeoutMs, zkConnectionTimeoutMs,
                 new ExponentialBackoffRetry(zkBaseSleepTimeMs, zkMaxRetries));
             c.start();
             this.client = c;
         }
+    }
+
+    public CuratorFramework getClient() {
         return this.client;
     }
 
