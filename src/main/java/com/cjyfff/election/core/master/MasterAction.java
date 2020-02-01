@@ -1,7 +1,6 @@
 package com.cjyfff.election.core.master;
 
 import java.util.List;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 
 import com.alibaba.fastjson.JSON;
@@ -77,7 +76,7 @@ public class MasterAction {
      * @Param isFinish 是否选举完成
      * @throws Exception
      */
-    public void masterClaimElectionStatus(CuratorFramework client, boolean isFinish) throws Exception {
+    public void masterUpdateZkElectionStatus(CuratorFramework client, boolean isFinish) throws Exception {
         ElectionStatusType electionStatusType;
         if (isFinish) {
             electionStatusType = ElectionStatusType.FINISH;
@@ -140,7 +139,7 @@ public class MasterAction {
             masterUpdateSelfStatus(true);
 
             try {
-                masterClaimElectionStatus(client, true);
+                masterUpdateZkElectionStatus(client, true);
             } catch (Exception e) {
                 // 更新远端zk选举状态失败时，把自身选举状态置为未完成
                 masterUpdateSelfStatus(false);
@@ -150,7 +149,7 @@ public class MasterAction {
         } else {
             masterUpdateSelfStatus(false);
 
-            masterClaimElectionStatus(client, false);
+            masterUpdateZkElectionStatus(client, false);
         }
     }
 }
