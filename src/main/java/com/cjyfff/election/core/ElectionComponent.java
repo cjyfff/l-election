@@ -36,17 +36,17 @@ public class ElectionComponent {
 
         ShardingInfo.setShardingMap(shardingMap);
 
-        Byte nodeId = null;
+        Byte shardingId = null;
         for (Entry<Byte, String> node : shardingMap.entrySet()) {
             if (host.equals(node.getValue())) {
-                nodeId = node.getKey();
+                shardingId = node.getKey();
                 break;
             }
         }
-        if (nodeId == null) {
+        if (shardingId == null) {
             log.warn("Invalid Sharding Map, can not find self node info.");
         } else {
-            ShardingInfo.setNodeId(nodeId);
+            ShardingInfo.setShardingId(shardingId);
         }
     }
 
