@@ -53,8 +53,8 @@ public class SlaveAction {
             if (null != data) {
                 String shardingData = new String(cache.getCurrentData().getData());
                 logger.info("Slave get cluster sharding info changed：" + shardingData);
-                ConcurrentSkipListMap<Byte, String> shardingMap = JSON.parseObject(shardingData,
-                    new TypeReference<ConcurrentSkipListMap<Byte, String>>() {});
+                ConcurrentSkipListMap<Integer, String> shardingMap = JSON.parseObject(shardingData,
+                    new TypeReference<ConcurrentSkipListMap<Integer, String>>() {});
                 electionComponent.updateSelfShardingInfo(shardingMap);
 
             } else {

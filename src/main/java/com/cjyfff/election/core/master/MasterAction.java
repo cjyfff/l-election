@@ -48,8 +48,8 @@ public class MasterAction {
      */
     public void masterSetShardingInfo(CuratorFramework client) throws Exception {
         List<String> nodeHostList = client.getChildren().forPath(NODE_INFO_PATH);
-        Byte shardingId = 0;
-        ConcurrentSkipListMap<Byte, String> shardingMap = new ConcurrentSkipListMap<>();
+        Integer shardingId = 0;
+        ConcurrentSkipListMap<Integer, String> shardingMap = new ConcurrentSkipListMap<>();
         for (String nodeHost : nodeHostList) {
             shardingMap.put(shardingId, nodeHost);
             logger.info("Host: " + nodeHost + ", get shardingId: " + shardingId);

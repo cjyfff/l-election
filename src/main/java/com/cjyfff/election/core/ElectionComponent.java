@@ -26,7 +26,7 @@ public class ElectionComponent {
     @Value("${l_election.specified_local_ip}")
     private String localIp;
 
-    public void updateSelfShardingInfo(ConcurrentSkipListMap<Byte, String> shardingMap) throws Exception {
+    public void updateSelfShardingInfo(ConcurrentSkipListMap<Integer, String> shardingMap) throws Exception {
         if (shardingMap == null) {
             ShardingInfo.setShardingMap(null);
             return;
@@ -36,8 +36,8 @@ public class ElectionComponent {
 
         ShardingInfo.setShardingMap(shardingMap);
 
-        Byte shardingId = null;
-        for (Entry<Byte, String> node : shardingMap.entrySet()) {
+        Integer shardingId = null;
+        for (Entry<Integer, String> node : shardingMap.entrySet()) {
             if (host.equals(node.getValue())) {
                 shardingId = node.getKey();
                 break;

@@ -10,26 +10,26 @@ public class ShardingInfo {
      * 集群所有机器的分片信息，key为sharding id，value为机器ip，
      * 为避免多线程写入时信息丢失，不能用HashMap而要使用线程安全的Map
      */
-    private static ConcurrentSkipListMap<Byte, String> shardingMap;
+    private static ConcurrentSkipListMap<Integer, String> shardingMap;
 
     /**
      * 本机 sharding id
      */
-    private static Byte shardingId;
+    private static Integer shardingId;
 
-    public static ConcurrentSkipListMap<Byte, String> getShardingMap() {
+    public static ConcurrentSkipListMap<Integer, String> getShardingMap() {
         return shardingMap;
     }
 
-    public static void setShardingMap(ConcurrentSkipListMap<Byte, String> shardingMap) {
+    public static void setShardingMap(ConcurrentSkipListMap<Integer, String> shardingMap) {
         ShardingInfo.shardingMap = shardingMap;
     }
 
-    public static Byte getShardingId() {
+    public static Integer getShardingId() {
         return shardingId;
     }
 
-    public static void setShardingId(Byte shardingId) {
+    public static void setShardingId(Integer shardingId) {
         ShardingInfo.shardingId = shardingId;
     }
 }
