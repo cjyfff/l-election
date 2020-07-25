@@ -8,7 +8,8 @@ import java.util.concurrent.TimeUnit;
 
 import com.cjyfff.election.exception.ElectionException;
 import com.cjyfff.election.core.info.ShardingInfo;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -17,8 +18,9 @@ import org.springframework.util.StringUtils;
  * Created by jiashen on 2018/9/8.
  */
 @Component
-@Slf4j
 public class ElectionComponent {
+
+    private final Logger logger = LoggerFactory.getLogger(getClass());
 
     @Value("${l_election.specified_port}")
     private String servicePort;
@@ -44,7 +46,7 @@ public class ElectionComponent {
             }
         }
         if (shardingId == null) {
-            log.warn("Invalid Sharding Map, can not find self node info.");
+            logger.warn("Invalid Sharding Map, can not find self node info.");
         } else {
             ShardingInfo.setShardingId(shardingId);
         }
@@ -63,7 +65,7 @@ public class ElectionComponent {
                 try {
                     addr = InetAddress.getLocalHost();
                 } catch (UnknownHostException ue) {
-                    log.warn("Can not get local ip info, retrying...");
+                    logger.warn("Can not get local ip info, retrying...");
                     TimeUnit.SECONDS.sleep(5);
                 }
 

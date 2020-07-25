@@ -1,6 +1,5 @@
 package com.cjyfff.election.biz;
 
-import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -8,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * Created by jiashen on 18-11-21.
  */
-@Getter
+
 @Component
 public class ElectionBizContainer {
 
@@ -84,5 +83,37 @@ public class ElectionBizContainer {
                 slaveAfterUpdateElectionNotYetBiz = (ElectionBiz) applicationContext.getBean(SAUENYB_NAME);
             }
         }
+    }
+
+    public ElectionBiz getMasterBeforeUpdateElectionFinishBiz() {
+        return masterBeforeUpdateElectionFinishBiz;
+    }
+
+    public ElectionBiz getMasterAfterUpdateElectionFinishBiz() {
+        return masterAfterUpdateElectionFinishBiz;
+    }
+
+    public ElectionBiz getMasterBeforeUpdateElectionNotYetBiz() {
+        return masterBeforeUpdateElectionNotYetBiz;
+    }
+
+    public ElectionBiz getMasterAfterUpdateElectionNotYetBiz() {
+        return masterAfterUpdateElectionNotYetBiz;
+    }
+
+    public ElectionBiz getSlaveBeforeUpdateElectionFinishBiz() {
+        return slaveBeforeUpdateElectionFinishBiz;
+    }
+
+    public ElectionBiz getSlaveAfterUpdateElectionFinishBiz() {
+        return slaveAfterUpdateElectionFinishBiz;
+    }
+
+    public ElectionBiz getSlaveBeforeUpdateElectionNotYetBiz() {
+        return slaveBeforeUpdateElectionNotYetBiz;
+    }
+
+    public ElectionBiz getSlaveAfterUpdateElectionNotYetBiz() {
+        return slaveAfterUpdateElectionNotYetBiz;
     }
 }
