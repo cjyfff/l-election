@@ -1,5 +1,10 @@
 package com.cjyfff.election.biz;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -27,21 +32,16 @@ public class ElectionBizContainer {
 
     private static final String SAUENYB_NAME = "slaveAfterUpdateElectionNotYetBiz";
 
-    private ElectionBiz masterBeforeUpdateElectionFinishBiz = new NoneBiz();
+    private Map<String, ElectionBiz> containerMap = new HashMap<>();
 
-    private ElectionBiz masterAfterUpdateElectionFinishBiz = new NoneBiz();
+    public ElectionBizContainer() {
+        List<String> nameList = Lists.newArrayList(MBUEFB_NAME, MAUEFB_NAME, MBUENYB_NAME,
+            MAUENYB_NAME, SBUEFB_NAME, SAUEFB_NAME, SBUENYB_NAME, SAUENYB_NAME);
 
-    private ElectionBiz masterBeforeUpdateElectionNotYetBiz = new NoneBiz();
-
-    private ElectionBiz masterAfterUpdateElectionNotYetBiz = new NoneBiz();
-
-    private ElectionBiz slaveBeforeUpdateElectionFinishBiz = new NoneBiz();
-
-    private ElectionBiz slaveAfterUpdateElectionFinishBiz = new NoneBiz();
-
-    private ElectionBiz slaveBeforeUpdateElectionNotYetBiz = new NoneBiz();
-
-    private ElectionBiz slaveAfterUpdateElectionNotYetBiz = new NoneBiz();
+        for (String name : nameList) {
+            this.containerMap.put(name, new NoneBiz());
+        }
+    }
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -51,69 +51,41 @@ public class ElectionBizContainer {
 
         for (String name : allBeansNames) {
 
-            if (MBUEFB_NAME.equals(name)) {
-                masterBeforeUpdateElectionFinishBiz = (ElectionBiz) applicationContext.getBean(MBUEFB_NAME);
-            }
-
-            if (MAUEFB_NAME.equals(name)) {
-                masterAfterUpdateElectionFinishBiz = (ElectionBiz) applicationContext.getBean(MAUEFB_NAME);
-            }
-
-            if (MBUENYB_NAME.equals(name)) {
-                masterBeforeUpdateElectionNotYetBiz = (ElectionBiz) applicationContext.getBean(MBUENYB_NAME);
-            }
-
-            if (MAUENYB_NAME.equals(name)) {
-                masterAfterUpdateElectionNotYetBiz = (ElectionBiz) applicationContext.getBean(MAUENYB_NAME);
-            }
-
-            if (SBUEFB_NAME.equals(name)) {
-                slaveBeforeUpdateElectionFinishBiz = (ElectionBiz) applicationContext.getBean(SBUEFB_NAME);
-            }
-
-            if (SAUEFB_NAME.equals(name)) {
-                slaveAfterUpdateElectionFinishBiz = (ElectionBiz) applicationContext.getBean(SAUEFB_NAME);
-            }
-
-            if (SBUENYB_NAME.equals(name)) {
-                slaveBeforeUpdateElectionNotYetBiz = (ElectionBiz) applicationContext.getBean(SBUENYB_NAME);
-            }
-
-            if (SAUENYB_NAME.equals(name)) {
-                slaveAfterUpdateElectionNotYetBiz = (ElectionBiz) applicationContext.getBean(SAUENYB_NAME);
+            if (containerMap.get(name) != null) {
+                containerMap.put(name, (ElectionBiz) applicationContext.getBean(name));
             }
         }
     }
 
     public ElectionBiz getMasterBeforeUpdateElectionFinishBiz() {
-        return masterBeforeUpdateElectionFinishBiz;
+        return containerMap.get(MBUEFB_NAME);
     }
 
     public ElectionBiz getMasterAfterUpdateElectionFinishBiz() {
-        return masterAfterUpdateElectionFinishBiz;
+        return containerMap.get(MAUEFB_NAME);
     }
 
     public ElectionBiz getMasterBeforeUpdateElectionNotYetBiz() {
-        return masterBeforeUpdateElectionNotYetBiz;
+        return containerMap.get(MBUENYB_NAME);
     }
 
     public ElectionBiz getMasterAfterUpdateElectionNotYetBiz() {
-        return masterAfterUpdateElectionNotYetBiz;
+        return containerMap.get(MAUENYB_NAME);
     }
 
     public ElectionBiz getSlaveBeforeUpdateElectionFinishBiz() {
-        return slaveBeforeUpdateElectionFinishBiz;
+        return containerMap.get(SBUEFB_NAME);
     }
 
     public ElectionBiz getSlaveAfterUpdateElectionFinishBiz() {
-        return slaveAfterUpdateElectionFinishBiz;
+        return containerMap.get(SAUEFB_NAME);
     }
 
     public ElectionBiz getSlaveBeforeUpdateElectionNotYetBiz() {
-        return slaveBeforeUpdateElectionNotYetBiz;
+        return containerMap.get(SBUENYB_NAME);
     }
 
     public ElectionBiz getSlaveAfterUpdateElectionNotYetBiz() {
-        return slaveAfterUpdateElectionNotYetBiz;
+        return containerMap.get(SAUENYB_NAME);
     }
 }
